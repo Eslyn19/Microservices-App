@@ -6,4 +6,4 @@ This project implements a microservices architecture using Docker, Express, and 
 ## Challenge
 Design and implement a scalable microservices architecture for an e-commerce-style system, based on the diagram below. The system routes client requests through a load balancer and API Gateway (handling centralized JWT authentication, rate limiting, and routing), distributes traffic to four independent microservices (Users, Orders, Payments, Catalogs) each backed by its own MySQL database, uses Redis for caching, RabbitMQ for asynchronous inter-service communication, and a circuit breaker pattern to prevent cascading failures.
 
-![Architecture diagram](./docs/arch-diagram.jpg)
+![Architecture diagram](./docs/arch-diagram.png)
