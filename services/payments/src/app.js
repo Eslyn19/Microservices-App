@@ -2,7 +2,7 @@ import express from 'express';
 import pinoHttp from 'pino-http';
 import dotenv from 'dotenv';
 import paymentRoutes from './routes/payments.routes.js';
-import { connectRabbit, publishPaymentEvent } from './config/rabbit.js';
+import { connectRabbit } from './config/rabbit.js';
 
 dotenv.config({ path: '.env' });
 
