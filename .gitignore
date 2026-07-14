@@ -1,0 +1,33 @@
+node_modules/
+*/node_modules/
+
+.env
+*.env
+!.env.example
+
+*.log
+npm-debug.log*
+logs/
+
+dist/
+build/
+
+coverage/
+
+# Docker
+docker-compose.override.yml
+
+# Database
+*.sql.bak
+mysql-data/
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+*.swp
+
+# Runtime
+*.pid
+*.pid.lock
