@@ -3,11 +3,14 @@ import pinoHttp from 'pino-http';
 import dotenv from 'dotenv';
 import userRoutes from './routes/users.routes.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import helmet from 'helmet';
 
 dotenv.config({path: '.env'});
 
 const app = express();
 
+app.disable('x-powered-by');
+app.use(helmet());
 app.use(express.json());
 app.use(pinoHttp());
 

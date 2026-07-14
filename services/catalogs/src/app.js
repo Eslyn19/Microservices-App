@@ -2,12 +2,15 @@ import express from 'express';
 import pinoHttp from 'pino-http';
 import dotenv from 'dotenv';
 import catalogRoutes from './routes/catalogs.routes.js';
+import helmet from 'helmet';
 
 dotenv.config({ path: '.env' });
 
 const app = express();
 app.use(express.json());
 app.use(pinoHttp());
+app.disable('x-powered-by');
+app.use(helmet());
 
 app.get('/health', (req, res) => res.json({ status: 'ok', service: 'catalogs' }));
 app.use('/catalogs', catalogRoutes);

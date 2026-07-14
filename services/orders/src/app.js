@@ -3,12 +3,15 @@ import pinoHttp from 'pino-http';
 import dotenv from 'dotenv';
 import orderRoutes from './routes/orders.routes.js';
 import { connectRabbit, consumePaymentEvents } from './config/rabbit.js';
+import helmet from 'helmet';
 
 dotenv.config({ path: '.env' });
 
 const app = express();
 app.use(express.json());
 app.use(pinoHttp());
+app.disable('x-powered-by');
+app.use(helmet());
 
 app.get('/health', (req, res) => res.json({ status: 'ok', service: 'orders' }));
 app.use('/orders', orderRoutes);
