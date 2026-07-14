@@ -23,4 +23,4 @@ const PORT = process.env.PAYMENTS_PORT;
     console.error('Failed to start payments-service', error);
     process.exit(1);
   }
-});
+})();
