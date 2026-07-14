@@ -1,0 +1,63 @@
+* {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  position: relative;
+  padding: 1rem 1.5rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-cart-container {
+  position: absolute;
+  right: 18px;
+  top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.header-cart {
+  position: relative;
+}
+
+.cart-icon {
+  width: 36px;
+  height: 36px;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.cart-badge {
+  position: absolute;
+  right: -8px;
+  top: -6px;
+  min-width: 15px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #a84401;
+  color: #dbdada;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 5px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}

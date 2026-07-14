@@ -1,0 +1,30 @@
+.root{}
+:root{
+  --bg-dark:#0b0b0d;
+  --card:#0f1113;
+  --muted:#9aa4ad;
+  --accent:#55f6f7;
+}
+.html,body,#root{margin:0}
+html,body,#root{height:100dvh}
+body{font-family:Poppins,system-ui,Segoe UI,Roboto,Helvetica,Arial;color:#e6eef3;background:var(--bg-dark);}
+.app{min-height:100dvh;display:flex;flex-direction:column}
+.header{display:flex;justify-content:center;align-items:center;padding:20px 28px;background:transparent}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:36px;height:36px;border-radius:8px;background:transparent}
+.nav{display:flex;gap:14px;color:var(--muted)}
+.container{flex:1;display:flex;padding:28px;gap:24px;align-items:flex-start}
+.left{display:none}
+.right{flex:1;position:relative}
+.card{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px;color:#fff;text-align:center}
+.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:16px}
+.product{background:var(--card);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.product .img{height:140px;border-radius:8px;background-size:cover;background-position:center}
+.product .title{font-weight:600}
+.controls{display:flex;gap:8px}
+.btn{background:var(--accent);border:none;padding:8px 12px;border-radius:8px;color:#001;cursor:pointer}
+.subtitle{color:var(--muted);font-size:13px}
+
+/* background container for ColorBends-like effect */
+.bg-canvas{position:fixed;inset:0;z-index:0;height:100dvh;overflow:hidden}
+.front{position:relative;z-index:1}

@@ -1,0 +1,4 @@
+.color-bends-container{position:absolute;inset:0}
+.card, .header, .product{box-shadow:0 6px 20px rgba(0,0,0,0.4)}
+.header .logo{box-shadow:0 6px 30px rgba(85,246,247,0.12)}
+.product .img{background-color:#0d0d0f}
