@@ -8,12 +8,23 @@ import { registerProxyRoutes } from './routes/proxyRoutes.js';
 import cacheRoutes from './routes/cacheRoutes.js';
 import breakerRoutes from './routes/breakerRoutes.js';
 import cors from 'cors';
+import helmet from 'helmet';
 
 const app = express();
 app.use(express.json());
 app.use(pinoHttp());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
-app.use(cors());
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || config.allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+}));
+app.disable('x-powered-by');
+app.use(helmet());
 
 app.use(verifyToken);
 app.use(healthRoutes);

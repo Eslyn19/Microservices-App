@@ -2,6 +2,7 @@ const config = {
   port: Number(process.env.PORT),
   jwtSecret: process.env.JWT_SECRET,
   redisUrl: process.env.REDIS_URL,
+  allowedOrigins: process.env.ALLOWED_ORIGINS?.split(',').map((origin) => origin.trim()).filter(Boolean) || [],
   services: {
     users: process.env.USERS_SERVICE_URL,
     orders: process.env.ORDERS_SERVICE_URL,
