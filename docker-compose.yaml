@@ -1,0 +1,105 @@
+services:
+  mysql-users:
+    image: mysql:8.4-oraclelinux9
+    container_name: mysql-users
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: usersdb
+    ports:
+      - '${MYSQL_PORT}:${MYSQL_CONTAINER_PORT}'
+    volumes:
+      - mysql-users-data:/var/lib/mysql
+      - ./services/users/init-users.sql:/docker-entrypoint-initdb.d/init-users.sql:ro
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - '${RABBITMQ_PORT}:5672'
+      - '${RABBITMQ_MANAGEMENT_PORT}:15672'
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - '${REDIS_PORT}:6379'
+
+  users-service:
+    build: ./services/users
+    container_name: users-service
+    env_file:
+      - ./services/users/.env
+    environment:
+      DB_HOST: mysql-users
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_NAME: usersdb
+      PORT: ${USERS_PORT}
+    ports:
+      - '${USERS_PORT}:${USERS_PORT}'
+    depends_on:
+      - mysql-users
+
+  orders-service:
+    build: ./services/orders
+    container_name: orders-service
+    environment:
+      PORT: ${ORDERS_PORT}
+      RABBITMQ_URL: ${RABBITMQ_URL}
+    ports:
+      - '${ORDERS_PORT}:${ORDERS_PORT}'
+    depends_on:
+      - rabbitmq
+
+  payments-service:
+    build: ./services/payments
+    container_name: payments-service
+    environment:
+      PORT: ${PAYMENTS_PORT}
+      RABBITMQ_URL: ${RABBITMQ_URL}
+    ports:
+      - '${PAYMENTS_PORT}:${PAYMENTS_PORT}'
+    depends_on:
+      - rabbitmq
+
+  catalogs-service:
+    build: ./services/catalogs
+    container_name: catalogs-service
+    environment:
+      PORT: ${CATALOGS_PORT}
+    ports:
+      - '${CATALOGS_PORT}:${CATALOGS_PORT}'
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    environment:
+      PORT: ${GATEWAY_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      REDIS_URL: ${REDIS_URL}
+      USERS_SERVICE_URL: ${USERS_SERVICE_URL}
+      ORDERS_SERVICE_URL: ${ORDERS_SERVICE_URL}
+      PAYMENTS_SERVICE_URL: ${PAYMENTS_SERVICE_URL}
+      CATALOGS_SERVICE_URL: ${CATALOGS_SERVICE_URL}
+    ports:
+      - '${GATEWAY_PORT}:${GATEWAY_PORT}'
+    depends_on:
+      - redis
+      - users-service
+      - orders-service
+      - payments-service
+      - catalogs-service
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - '${NGINX_PORT}:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api-gateway
+
+volumes:
+  mysql-users-data:
