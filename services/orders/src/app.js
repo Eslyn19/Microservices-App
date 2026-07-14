@@ -15,7 +15,7 @@ app.use('/orders', orderRoutes);
 
 const PORT = process.env.ORDERS_PORT
 
-(async function start() {
+async function start() {
   try {
     await connectRabbit();
     await consumePaymentEvents();
@@ -25,4 +25,6 @@ const PORT = process.env.ORDERS_PORT
     console.error('Failed to start orders-service', error);
     process.exit(1);
   }
-})();
+};
+
+start();
