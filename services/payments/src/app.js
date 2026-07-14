@@ -15,7 +15,7 @@ app.use('/payments', paymentRoutes);
 
 const PORT = process.env.PAYMENTS_PORT;
 
-(async function start() {
+async function start() {
   try {
     await connectRabbit();
     app.listen(PORT, () => console.log(`payments-service listening on port ${PORT}`));
@@ -23,4 +23,6 @@ const PORT = process.env.PAYMENTS_PORT;
     console.error('Failed to start payments-service', error);
     process.exit(1);
   }
-})();
+}
+
+start();
